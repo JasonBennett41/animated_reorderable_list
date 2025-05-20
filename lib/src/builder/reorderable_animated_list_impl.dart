@@ -117,7 +117,7 @@ class ReorderableAnimatedListImplState<E extends Object>
     return ReorderableAnimatedBuilder(
       key: listKey,
       initialCount: oldList.length,
-      preDragOperations: preDragOperations,
+      preDragOperations: preDragOperations!,
       onReorder: onReorder,
       onReorderStart: onReorderStart,
       onReorderEnd: onReorderEnd,
