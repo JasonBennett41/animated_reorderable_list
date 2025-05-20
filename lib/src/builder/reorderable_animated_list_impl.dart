@@ -126,7 +126,8 @@ class ReorderableAnimatedListImplState<E extends Object>
       longPressDraggable: longPressDraggable,
       dragStartDelay: dragStartDelay,
       nonDraggableIndices: nonDraggableItems,
-      lockedIndices: lockedIndices,
+      lockedIndices: lockedIndices, 
+      onStart: onReorderStart,
     );
   }
 }
