@@ -14,6 +14,7 @@ class ReorderableAnimatedListImpl<E extends Object>
     List<AnimationEffect>? exitTransition,
     Duration? insertDuration,
     Duration? removeDuration,
+    VoidCallback? preDragOperations,
     ReorderCallback? onReorder,
     void Function(int)? onReorderStart,
     void Function(int)? onReorderEnd,
@@ -36,6 +37,7 @@ class ReorderableAnimatedListImpl<E extends Object>
             exitTransition: exitTransition,
             insertDuration: insertDuration,
             removeDuration: removeDuration,
+            preDragOperations: preDragOperations,
             onReorder: onReorder,
             onReorderStart: onReorderStart,
             onReorderEnd: onReorderEnd,
@@ -58,6 +60,7 @@ class ReorderableAnimatedListImpl<E extends Object>
     required ItemBuilder itemBuilder,
     List<AnimationEffect>? enterTransition,
     List<AnimationEffect>? exitTransition,
+    VoidCallback? preDragOperations,
     ReorderCallback? onReorder,
     void Function(int)? onReorderStart,
     void Function(int)? onReorderEnd,
@@ -83,6 +86,7 @@ class ReorderableAnimatedListImpl<E extends Object>
             exitTransition: exitTransition,
             insertDuration: insertDuration,
             removeDuration: removeDuration,
+            preDragOperations: preDragOperations,
             onReorder: onReorder,
             onReorderStart: onReorderStart,
             onReorderEnd: onReorderEnd,
@@ -113,6 +117,7 @@ class ReorderableAnimatedListImplState<E extends Object>
     return ReorderableAnimatedBuilder(
       key: listKey,
       initialCount: oldList.length,
+      preDragOperations: preDragOperations,
       onReorder: onReorder,
       onReorderStart: onReorderStart,
       onReorderEnd: onReorderEnd,
@@ -126,8 +131,7 @@ class ReorderableAnimatedListImplState<E extends Object>
       longPressDraggable: longPressDraggable,
       dragStartDelay: dragStartDelay,
       nonDraggableIndices: nonDraggableItems,
-      lockedIndices: lockedIndices, 
-      onStart: onReorderStart,
+      lockedIndices: lockedIndices,
     );
   }
 }

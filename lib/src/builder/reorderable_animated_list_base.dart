@@ -19,6 +19,7 @@ abstract class ReorderableAnimatedListBase<W extends Widget, E extends Object>
     extends StatefulWidget {
   final ItemBuilder<W, E>? itemBuilder;
   final List<E> items;
+  final VoidCallback? preDragOperations;
   final ReorderCallback? onReorder;
   final void Function(int)? onReorderStart;
   final void Function(int)? onReorderEnd;
@@ -43,6 +44,7 @@ abstract class ReorderableAnimatedListBase<W extends Widget, E extends Object>
       {Key? key,
       required this.items,
       this.itemBuilder,
+      this.preDragOperations,
       this.onReorder,
       this.onReorderEnd,
       this.onReorderStart,
@@ -98,6 +100,10 @@ abstract class ReorderableAnimatedListBaseState<
   @nonVirtual
   @protected
   SliverGridDelegate? get sliverGridDelegate => widget.sliverGridDelegate;
+
+  @nonVirtual
+  @protected
+  VoidCallback? get preDragOperations => widget.preDragOperations;
 
   @nonVirtual
   @protected

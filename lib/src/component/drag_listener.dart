@@ -1,3 +1,5 @@
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 
@@ -13,7 +15,7 @@ class ReorderableGridDragStartListener extends StatelessWidget {
     Key? key,
     required this.child,
     required this.index,
-    required this.onStart,
+    this.preDragOperations,
     this.enabled = true,
   }) : super(key: key);
 
@@ -24,7 +26,7 @@ class ReorderableGridDragStartListener extends StatelessWidget {
   /// The index of the associated item that will be dragged in the grid.
   final int index;
 
-  final void Function(int)? onStart;
+  final VoidCallback? preDragOperations;
 
   /// Whether the [child] item can be dragged and moved in the grid.
   ///
@@ -36,7 +38,9 @@ class ReorderableGridDragStartListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return Listener(
       onPointerDown: enabled
-          ? (PointerDownEvent event) => _startDragging(context, event)
+          ? (PointerDownEvent event) => {
+            preDragOperations?.call(),
+            _startDragging(context, event)}
           : null,
       child: child,
     );
@@ -94,9 +98,8 @@ class ReorderableGridDelayedDragStartListener
     required Widget child,
     required int index,
     required this.dragStartDelay,
-    required void Function(int)? onStart,
     bool enabled = true,
-  }) : super(key: key, child: child, index: index, onStart: onStart, enabled: enabled);
+  }) : super(key: key, child: child, index: index, enabled: enabled);
 
   @override
   MultiDragGestureRecognizer createRecognizer() {
