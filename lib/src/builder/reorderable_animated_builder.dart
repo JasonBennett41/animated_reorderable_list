@@ -33,6 +33,8 @@ class ReorderableAnimatedBuilder<E> extends StatefulWidget {
   final List<int> nonDraggableIndices;
   final List<int> lockedIndices;
 
+  final void Function(int)? onStart;
+
   const ReorderableAnimatedBuilder(
       {Key? key,
       required this.itemBuilder,
@@ -49,7 +51,7 @@ class ReorderableAnimatedBuilder<E> extends StatefulWidget {
       this.longPressDraggable = false,
       required this.dragStartDelay,
       required this.nonDraggableIndices,
-      required this.lockedIndices})
+      required this.lockedIndices, required this.onStart})
       : assert(initialCount >= 0),
         super(key: key);
 
@@ -190,6 +192,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
         tickerProvider: this);
 
     _dragInfo!.startDrag();
+    print('started drag');
     item.dragSize = _dragInfo!.itemSize;
 
     final OverlayState overlay = Overlay.of(context, debugRequiredFor: widget);
@@ -796,7 +799,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
 
     final itemIndex = _itemIndexToIndex(index);
 
-    final Widget child = _dragEnabled(itemIndex)
+    var child = _dragEnabled(itemIndex)
         ? reorderableItemBuilder(context, itemIndex)
         : widget.itemBuilder(context, itemIndex);
 
@@ -870,6 +873,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: ReorderableGridDragStartListener(
+                          onStart: widget.onStart,
                           index: index,
                           child: const Icon(Icons.drag_handle),
                         ),
@@ -890,6 +894,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
                         alignment: AlignmentDirectional.centerEnd,
                         child: ReorderableGridDragStartListener(
                           index: index,
+                          onStart: widget.onStart,
                           child: const Icon(Icons.drag_handle),
                         ),
                       ))
@@ -903,6 +908,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
               dragStartDelay: widget.dragStartDelay,
               key: itemGlobalKey,
               index: index,
+              onStart: widget.onStart,
               child: item);
       }
     }
@@ -913,6 +919,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
       key: itemGlobalKey,
       index: index,
       enabled: enable,
+      onStart: widget.onStart,
       child: itemWithSemantics,
     );
   }
