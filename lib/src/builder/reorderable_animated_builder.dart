@@ -147,6 +147,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
       required PointerDownEvent event,
       required MultiDragGestureRecognizer recognizer}) {
     assert(0 <= index && index < _itemsCount);
+    print('startItemDragReorder');
     setState(() {
       if (_dragInfo != null) {
         cancelReorder();
@@ -169,13 +170,12 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
 
   Drag? _dragStart(Offset position) {
     assert(_dragInfo == null);
-    print('calling reorder start');
-    widget.onReorderStart?.call(_dragIndex!);
-    
+
     final ReorderableAnimatedContentState item = _items[_dragIndex]!;
     print('selected item');
     _isDragging = true;
 
+    widget.onReorderStart?.call(_dragIndex!);
     item.dragging = true;
     item.rebuild();
     _insertIndex = item.index;
