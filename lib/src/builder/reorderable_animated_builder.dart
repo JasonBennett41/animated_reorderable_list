@@ -167,11 +167,12 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
 
   Drag? _dragStart(Offset position) {
     assert(_dragInfo == null);
+    widget.onReorderStart?.call(_dragIndex!);
+
     final ReorderableAnimatedContentState item = _items[_dragIndex]!;
     _isDragging = true;
 
     item.dragging = true;
-    widget.onReorderStart?.call(_dragIndex!);
     item.rebuild();
     _insertIndex = item.index;
     _dragInfo = _DragInfo(
