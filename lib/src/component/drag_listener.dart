@@ -13,7 +13,7 @@ class ReorderableGridDragStartListener extends StatelessWidget {
     Key? key,
     required this.child,
     required this.index,
-    this.preDragOperations,
+    required this.preDragOperations,
     this.enabled = true,
   }) : super(key: key);
 
@@ -24,7 +24,7 @@ class ReorderableGridDragStartListener extends StatelessWidget {
   /// The index of the associated item that will be dragged in the grid.
   final int index;
 
-  final VoidCallback? preDragOperations;
+  final VoidCallback preDragOperations;
 
   /// Whether the [child] item can be dragged and moved in the grid.
   ///
@@ -37,9 +37,10 @@ class ReorderableGridDragStartListener extends StatelessWidget {
     return Listener(
       onPointerDown: enabled
           ? (PointerDownEvent event) => {
-            preDragOperations?.call(),
-            print('preDragOperations: ${preDragOperations.toString()}'),
-            _startDragging(context, event)}
+                preDragOperations.call(),
+                print('preDragOperations: ${preDragOperations.toString()}'),
+                _startDragging(context, event)
+              }
           : null,
       child: child,
     );
@@ -97,8 +98,14 @@ class ReorderableGridDelayedDragStartListener
     required Widget child,
     required int index,
     required this.dragStartDelay,
+    required VoidCallback preDragOperations,
     bool enabled = true,
-  }) : super(key: key, child: child, index: index, enabled: enabled);
+  }) : super(
+            key: key,
+            child: child,
+            index: index,
+            preDragOperations: preDragOperations,
+            enabled: enabled);
 
   @override
   MultiDragGestureRecognizer createRecognizer() {

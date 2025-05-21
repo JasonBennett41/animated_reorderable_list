@@ -189,7 +189,7 @@ class AnimatedReorderableListView<E extends Object> extends StatefulWidget {
   /// `removeDuration` is overridden by the duration specified in the `exitTransition`.
   final Duration? removeDuration;
 
-  final VoidCallback? preDragOperations;
+  final VoidCallback preDragOperations;
 
   /// A callback used by [AnimatedReorderableListView] to report that a list item has moved
   /// to a new position in the list.
@@ -373,12 +373,12 @@ class AnimatedReorderableListView<E extends Object> extends StatefulWidget {
     Key? key,
     required this.items,
     required this.itemBuilder,
+    required this.preDragOperations,
     required this.onReorder,
     this.enterTransition,
     this.exitTransition,
     this.insertDuration,
     this.removeDuration,
-    this.preDragOperations,
     this.onReorderStart,
     this.onReorderEnd,
     this.proxyDecorator,
@@ -479,7 +479,7 @@ class AnimatedReorderableListViewState<E extends Object>
             exitTransition: widget.exitTransition,
             insertDuration: widget.insertDuration,
             removeDuration: widget.removeDuration,
-            preDragOperations: widget.preDragOperations!,
+            preDragOperations: widget.preDragOperations,
             onReorder: widget.onReorder,
             onReorderStart: widget.onReorderStart,
             onReorderEnd: widget.onReorderEnd,

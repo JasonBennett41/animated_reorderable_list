@@ -379,6 +379,7 @@ class AnimatedListViewState<E extends Object>
             sliver: ReorderableAnimatedListImpl(
               items: widget.items,
               itemBuilder: widget.itemBuilder,
+              preDragOperations: () {},
               enterTransition: widget.enterTransition,
               exitTransition: widget.exitTransition,
               insertDuration: widget.insertDuration,

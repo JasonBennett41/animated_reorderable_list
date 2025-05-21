@@ -383,6 +383,7 @@ class AnimatedGridViewState<E extends Object>
             sliver: ReorderableAnimatedListImpl.grid(
                 items: widget.items,
                 itemBuilder: widget.itemBuilder,
+                preDragOperations: () {},
                 sliverGridDelegate: widget.sliverGridDelegate,
                 insertDuration: widget.insertDuration,
                 removeDuration: widget.removeDuration,
