@@ -37,14 +37,22 @@ class ReorderableGridDragStartListener extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Listener(
-      onPointerDown: enabled
-          ? (PointerDownEvent event) =>
-              {preDragOperations.call(), _startDragging(context, event)}
-          : null,
-      onPointerUp: (event) {
-        postDragOperations.call();
+      onPointerDown: (event) {
+        print('pointer down');
       },
-      child: child,
+      // enabled
+      //     ? (PointerDownEvent event) =>
+      //         {preDragOperations.call(), _startDragging(context, event)}
+      //     : null,
+      child: GestureDetector(
+        onHorizontalDragStart: (details) {
+          print('horizontal drag start');
+        },
+        onVerticalDragStart: (details) {
+          print('vertical drag start');
+        },
+        child: child,
+      ),
     );
   }
 
@@ -55,7 +63,7 @@ class ReorderableGridDragStartListener extends StatelessWidget {
   /// subclasses can use this to customize the drag start gesture.
   @protected
   MultiDragGestureRecognizer createRecognizer() {
-    return ImmediateMultiDragGestureRecognizer(debugOwner: this);
+    return HorizontalMultiDragGestureRecognizer(debugOwner: this);
   }
 
   void _startDragging(BuildContext context, PointerDownEvent event) {
