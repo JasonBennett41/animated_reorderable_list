@@ -156,7 +156,6 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
         _recognizer!.dispose();
         _recognizer = null;
         _recognizerPointer = null;
-        
       }
       if (_items.containsKey(index)) {
         _dragIndex = index;
@@ -173,10 +172,17 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
   Drag? _dragStart(Offset position) {
     assert(_dragInfo == null);
 
+    widget.onReorderStart?.call(_dragIndex!);
+
+    _items.update(_dragIndex!, (item) {
+      item.rebuild();
+
+      return item;
+    });
+
     final ReorderableAnimatedContentState item = _items[_dragIndex]!;
     _isDragging = true;
 
-    widget.onReorderStart?.call(_dragIndex!);
     item.dragging = true;
     item.rebuild();
     _insertIndex = item.index;
