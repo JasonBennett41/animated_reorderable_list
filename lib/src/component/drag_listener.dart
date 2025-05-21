@@ -40,6 +40,9 @@ class ReorderableGridDragStartListener extends StatelessWidget {
       onPointerDown: enabled
           ? (PointerDownEvent event) => _startDragging(context, event)
           : null,
+      onPointerMove: (event) {
+        
+      },
       child: child,
     );
   }
@@ -57,7 +60,7 @@ class ReorderableGridDragStartListener extends StatelessWidget {
   void _startDragging(BuildContext context, PointerDownEvent event) {
     final DeviceGestureSettings? gestureSettings =
         MediaQuery.maybeGestureSettingsOf(context);
-
+    preDragOperations.call();
     final ReorderableAnimatedBuilderState? list =
         ReorderableAnimatedBuilder.maybeOf(context);
     list?.startItemDragReorder(
