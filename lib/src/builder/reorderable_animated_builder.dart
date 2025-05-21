@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -364,6 +365,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
   }
 
   void cancelReorder() {
+    widget.onReorderEnd?.call(_insertIndex ?? 0);
     setState(() {
       _dragReset();
     });
