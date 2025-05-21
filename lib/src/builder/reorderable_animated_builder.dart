@@ -18,7 +18,7 @@ typedef CustomAnimatedWidgetBuilder<E> = Widget Function(
 class ReorderableAnimatedBuilder<E> extends StatefulWidget {
   final CustomAnimatedWidgetBuilder<E> insertAnimationBuilder;
   final CustomAnimatedWidgetBuilder<E> removeAnimationBuilder;
-  final VoidCallback? preDragOperations;
+  final VoidCallback preDragOperations;
   final ReorderCallback? onReorder;
   final void Function(int index)? onReorderStart;
   final void Function(int index)? onReorderEnd;
@@ -39,7 +39,7 @@ class ReorderableAnimatedBuilder<E> extends StatefulWidget {
       required this.itemBuilder,
       required this.insertAnimationBuilder,
       required this.removeAnimationBuilder,
-      this.preDragOperations,
+      required this.preDragOperations,
       this.onReorder,
       this.onReorderEnd,
       this.onReorderStart,
@@ -906,6 +906,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
         case TargetPlatform.iOS:
           return ReorderableGridDelayedDragStartListener(
               dragStartDelay: widget.dragStartDelay,
+              preDragOperations: widget.preDragOperations,
               key: itemGlobalKey,
               index: index,
               child: item);
@@ -915,6 +916,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
     const bool enable = true;
     return ReorderableGridDelayedDragStartListener(
       dragStartDelay: widget.dragStartDelay,
+      preDragOperations: widget.preDragOperations,
       key: itemGlobalKey,
       index: index,
       enabled: enable,

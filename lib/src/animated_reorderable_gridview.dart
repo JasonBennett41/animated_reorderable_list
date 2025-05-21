@@ -459,6 +459,7 @@ class AnimatedReorderableGridViewState<E extends Object>
               removeDuration: widget.removeDuration,
               enterTransition: widget.enterTransition,
               exitTransition: widget.exitTransition,
+              preDragOperations: () {},
               onReorder: widget.onReorder,
               onReorderStart: widget.onReorderStart,
               onReorderEnd: widget.onReorderEnd,
