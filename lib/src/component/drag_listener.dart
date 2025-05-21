@@ -36,12 +36,12 @@ class ReorderableGridDragStartListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return Listener(
       onPointerDown: enabled
-          ? (PointerDownEvent event) => {
-                preDragOperations.call(),
-                print('preDragOperations: ${preDragOperations.toString()}'),
-                _startDragging(context, event)
-              }
+          ? (PointerDownEvent event) =>
+              {preDragOperations.call(), _startDragging(context, event)}
           : null,
+      onPointerCancel: (event) {
+        print('pointer cancel');
+      },
       child: child,
     );
   }
