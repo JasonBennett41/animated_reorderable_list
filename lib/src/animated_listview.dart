@@ -380,6 +380,7 @@ class AnimatedListViewState<E extends Object>
               items: widget.items,
               itemBuilder: widget.itemBuilder,
               preDragOperations: () {},
+              postDragOperations: () {},
               enterTransition: widget.enterTransition,
               exitTransition: widget.exitTransition,
               insertDuration: widget.insertDuration,

@@ -190,6 +190,7 @@ class AnimatedReorderableListView<E extends Object> extends StatefulWidget {
   final Duration? removeDuration;
 
   final VoidCallback preDragOperations;
+  final VoidCallback postDragOperations;
 
   /// A callback used by [AnimatedReorderableListView] to report that a list item has moved
   /// to a new position in the list.
@@ -374,6 +375,7 @@ class AnimatedReorderableListView<E extends Object> extends StatefulWidget {
     required this.items,
     required this.itemBuilder,
     required this.preDragOperations,
+    required this.postDragOperations,
     required this.onReorder,
     this.enterTransition,
     this.exitTransition,
@@ -480,6 +482,7 @@ class AnimatedReorderableListViewState<E extends Object>
             insertDuration: widget.insertDuration,
             removeDuration: widget.removeDuration,
             preDragOperations: widget.preDragOperations,
+            postDragOperations: widget.postDragOperations,
             onReorder: widget.onReorder,
             onReorderStart: widget.onReorderStart,
             onReorderEnd: widget.onReorderEnd,

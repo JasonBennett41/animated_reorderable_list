@@ -183,6 +183,7 @@ class _HomePageState extends State<HomePage> {
                         lockedItems: lockedItems,
                         buildDefaultDragHandles: true,
                         preDragOperations: () {},
+                        postDragOperations: () {},
                         onReorder: (int oldIndex, int newIndex) {
                           final Map<User, int> lockedItemPositions = {
                             for (int i = 0; i < list.length; i++)

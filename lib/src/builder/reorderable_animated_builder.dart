@@ -19,6 +19,7 @@ class ReorderableAnimatedBuilder<E> extends StatefulWidget {
   final CustomAnimatedWidgetBuilder<E> insertAnimationBuilder;
   final CustomAnimatedWidgetBuilder<E> removeAnimationBuilder;
   final VoidCallback preDragOperations;
+  final VoidCallback postDragOperations;
   final ReorderCallback? onReorder;
   final void Function(int index)? onReorderStart;
   final void Function(int index)? onReorderEnd;
@@ -40,6 +41,7 @@ class ReorderableAnimatedBuilder<E> extends StatefulWidget {
       required this.insertAnimationBuilder,
       required this.removeAnimationBuilder,
       required this.preDragOperations,
+      required this.postDragOperations,
       this.onReorder,
       this.onReorderEnd,
       this.onReorderStart,
@@ -154,7 +156,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
         _recognizer!.dispose();
         _recognizer = null;
         _recognizerPointer = null;
-        print("disposing recognizer");
+        
       }
       if (_items.containsKey(index)) {
         _dragIndex = index;
@@ -362,9 +364,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
   }
 
   void cancelReorder() {
-    widget.onReorderEnd?.call(_insertIndex ?? 0);
     setState(() {
-      print('drag reset');
       _dragReset();
     });
     _isDragging = false;
@@ -875,6 +875,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
                         child: ReorderableGridDragStartListener(
                           index: index,
                           preDragOperations: widget.preDragOperations,
+                          postDragOperations: widget.postDragOperations,
                           child: const Icon(Icons.drag_handle),
                         ),
                       ))
@@ -895,6 +896,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
                         child: ReorderableGridDragStartListener(
                           index: index,
                           preDragOperations: widget.preDragOperations,
+                          postDragOperations: widget.postDragOperations,
                           child: const Icon(Icons.drag_handle),
                         ),
                       ))
@@ -907,6 +909,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
           return ReorderableGridDelayedDragStartListener(
               dragStartDelay: widget.dragStartDelay,
               preDragOperations: widget.preDragOperations,
+              postDragOperations: widget.postDragOperations,
               key: itemGlobalKey,
               index: index,
               child: item);
@@ -917,6 +920,7 @@ class ReorderableAnimatedBuilderState extends State<ReorderableAnimatedBuilder>
     return ReorderableGridDelayedDragStartListener(
       dragStartDelay: widget.dragStartDelay,
       preDragOperations: widget.preDragOperations,
+      postDragOperations: widget.postDragOperations,
       key: itemGlobalKey,
       index: index,
       enabled: enable,

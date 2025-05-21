@@ -20,6 +20,7 @@ abstract class ReorderableAnimatedListBase<W extends Widget, E extends Object>
   final ItemBuilder<W, E>? itemBuilder;
   final List<E> items;
   final VoidCallback preDragOperations;
+  final VoidCallback postDragOperations;
   final ReorderCallback? onReorder;
   final void Function(int)? onReorderStart;
   final void Function(int)? onReorderEnd;
@@ -44,6 +45,7 @@ abstract class ReorderableAnimatedListBase<W extends Widget, E extends Object>
       {Key? key,
       required this.items,
       required this.preDragOperations,
+      required this.postDragOperations,
       this.itemBuilder,
       this.onReorder,
       this.onReorderEnd,
@@ -104,6 +106,10 @@ abstract class ReorderableAnimatedListBaseState<
   @nonVirtual
   @protected
   VoidCallback get preDragOperations => widget.preDragOperations;
+
+  @nonVirtual
+  @protected
+  VoidCallback get postDragOperations => widget.postDragOperations;
 
   @nonVirtual
   @protected

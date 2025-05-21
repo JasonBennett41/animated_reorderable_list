@@ -14,6 +14,7 @@ class ReorderableGridDragStartListener extends StatelessWidget {
     required this.child,
     required this.index,
     required this.preDragOperations,
+    required this.postDragOperations,
     this.enabled = true,
   }) : super(key: key);
 
@@ -25,6 +26,7 @@ class ReorderableGridDragStartListener extends StatelessWidget {
   final int index;
 
   final VoidCallback preDragOperations;
+  final VoidCallback postDragOperations;
 
   /// Whether the [child] item can be dragged and moved in the grid.
   ///
@@ -40,7 +42,7 @@ class ReorderableGridDragStartListener extends StatelessWidget {
               {preDragOperations.call(), _startDragging(context, event)}
           : null,
       onPointerUp: (event) {
-        print('pointer we up');
+        postDragOperations.call();
       },
       child: child,
     );
@@ -99,12 +101,14 @@ class ReorderableGridDelayedDragStartListener
     required int index,
     required this.dragStartDelay,
     required VoidCallback preDragOperations,
+    required VoidCallback postDragOperations,
     bool enabled = true,
   }) : super(
             key: key,
             child: child,
             index: index,
             preDragOperations: preDragOperations,
+            postDragOperations: postDragOperations,
             enabled: enabled);
 
   @override

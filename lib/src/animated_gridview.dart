@@ -384,6 +384,7 @@ class AnimatedGridViewState<E extends Object>
                 items: widget.items,
                 itemBuilder: widget.itemBuilder,
                 preDragOperations: () {},
+                postDragOperations: () {},
                 sliverGridDelegate: widget.sliverGridDelegate,
                 insertDuration: widget.insertDuration,
                 removeDuration: widget.removeDuration,
